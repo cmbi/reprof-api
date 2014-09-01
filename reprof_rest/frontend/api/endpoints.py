@@ -1,6 +1,7 @@
 import os
 import re
 from hashlib import md5
+from tempfile import gettempdir
 
 from flask import Blueprint, Flask, jsonify, abort, make_response, request
 
@@ -25,13 +26,20 @@ def get_reprof():
 
     ID = request.json.get('id', md5(seq).hexdigest())
 
-    fastaPath = '%s.fa' % ID
-    reprofPath = '%s.reprof' % ID
+    fastaPath = os.path.join(gettempdir(), '%s.fa' % ID )
+    reprofPath = os.path.join(gettempdir(), '%s.reprof' % ID )
     toFasta(ID, seq, fastaPath)
-    os.system('reprof -i %s -o %s' % (fastaPath, reprofPath))
+    if not os.path.isfile( fastaPath ):
+      abort(500)
+
+    exitcode=os.system('reprof -i %s -o %s' % (fastaPath, reprofPath))
+
+    os.remove(fastaPath)
+
+    if exitcode!=0 or not os.path.isfile( reprofPath ):
+      abort(500)
 
     reprof = parseReprof(reprofPath)
-    os.remove(fastaPath)
     os.remove(reprofPath)
 
     return jsonify({'reprof' : reprof})
