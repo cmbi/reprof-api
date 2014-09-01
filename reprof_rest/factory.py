@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import SMTPHandler
 
 from flask import Flask
 
