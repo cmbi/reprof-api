@@ -1,4 +1,4 @@
-import os
+import os,subprocess
 import re
 from hashlib import md5
 from tempfile import gettempdir
@@ -32,7 +32,7 @@ def get_reprof():
     if not os.path.isfile( fastaPath ):
       abort(500)
 
-    exitcode=os.system('reprof -i %s -o %s' % (fastaPath, reprofPath))
+    exitcode=subprocess.call(['reprof','-i',fastaPath,'-o', reprofPath])
 
     os.remove(fastaPath)
 
