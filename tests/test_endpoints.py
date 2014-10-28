@@ -1,8 +1,5 @@
 import json
-import re
 
-from flask import jsonify
-from mock import patch
 from nose.tools import eq_, ok_
 
 from reprof_rest.factory import create_app
@@ -20,7 +17,7 @@ class TestEndpoints(object):
         rv = self.app.post('/api/reprof/',
                            data=json.dumps({'sequence': seq}),
                            content_type='application/json')
-        ok_(rv.status_code == 200)
+        eq_(rv.status_code, 200)
         rv_json = json.loads(rv.data)
         ok_('reprof' in rv_json)
 
