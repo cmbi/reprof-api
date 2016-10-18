@@ -4,7 +4,7 @@ MarkupSafe==0.23
 Werkzeug==0.9.6
 argparse==1.2.1
 coverage==3.7.1
-gevent==1.0.1
+gevent==1.1.2
 greenlet==0.4.3
 gunicorn==19.1.1
 itsdangerous==0.24

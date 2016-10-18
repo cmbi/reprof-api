@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn -k gevent -b 0.0.0.0:5001 reprof_rest.application:app
+    ports:
+      - "5001:5001"
+    environment:
+      - REPROF_REST_SETTINGS=/usr/src/app/prd_settings.py
