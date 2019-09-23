@@ -23,7 +23,7 @@ def get_reprof():
     if not _RE_SEQP.match(seq):
         abort(400)
 
-    ID = request.json.get('id', md5(seq).hexdigest())
+    ID = request.json.get('id', md5(seq.encode()).hexdigest())
 
     fastaPath = '%s.fa' % ID
     reprofPath = '%s.reprof' % ID
