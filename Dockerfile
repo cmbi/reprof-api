@@ -1,7 +1,7 @@
 FROM python:3.7
 
 # dependencies
-RUN apt-get update ; apt-get install -y reprof
+RUN apt-get update ; apt-get install -y reprof pp-popularity-contest
 
 # hope
 RUN mkdir -p /usr/src/app
