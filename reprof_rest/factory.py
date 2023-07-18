@@ -47,8 +47,8 @@ def create_app(settings=None):
         root_logger.setLevel(logging.DEBUG)
 
     # Use ProxyFix to correct URL's when redirecting.
-    from werkzeug.contrib.fixers import ProxyFix
-    app.wsgi_app = ProxyFix(app.wsgi_app)
+    from reprof_rest.middleware import ReverseProxied
+    app.wsgi_app = ReverseProxied(app.wsgi_app)
 
     # Register blueprints
     from reprof_rest.frontend.api.endpoints import bp as api_bp
